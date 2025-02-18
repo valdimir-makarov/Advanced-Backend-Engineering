@@ -38,5 +38,31 @@ async function createAirplane(req, res) {
         });
     }
 }
+async function getAllAirplanes(req,res){
+try{
+    const response = await Airplaneservice.getAllAirplanes()
+    SuccessResponse.data = response
+    console.log(SuccessResponse.data,"getAll")
+    return res.status(StatusCodes.CREATED).json({
+        SuccessResponse
+        
+     });
 
-module.exports = { createAirplane };
+}
+catch (error) {
+    console.error("Error creating airplane:", error.message);
+    ErrorResponse.message="Failed to get all the Airplane",
+    ErrorResponse.error = error
+    ErrorResponse.data = "its From Air Plane Controller"
+
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+       ErrorResponse
+    });
+}
+
+
+
+
+
+}
+module.exports = { createAirplane,getAllAirplanes };
