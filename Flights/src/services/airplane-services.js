@@ -1,6 +1,7 @@
 const { AirplaneRepository } = require('../repositories');
 const { ErrorResponse } = require('../utils/errors');
 const AppError = require('../utils/errors/app-error');
+const { error } = require('../utils/errors/error-response');
 const logger = require('../utils/errors/logger');
 
 const airplaneRepository = new AirplaneRepository();
@@ -8,6 +9,9 @@ const airplaneRepository = new AirplaneRepository();
 async function createAirplane(data) {
     try {
         const response = await airplaneRepository.create(data);
+        if(!response){
+          logger.error("error in Creating Airplanes all ariplanes",`${error.message}`)
+        }
         return response;
     } 
     catch (error) {
@@ -27,6 +31,9 @@ async function createAirplane(data) {
 async function getAllAirplanes() {
   try {
     const response = await airplaneRepository.findAll();
+    if(!response){
+      logger.error("error in get all ariplanes",`${error.message}`)
+    }
     return response;
   } catch (error) {
     logger.error(`Error in getAllAirplanes: ${error.message}`, {
