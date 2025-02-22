@@ -35,6 +35,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'cities', // Assumes there is a Cities table
+          
           key: 'id'
         },
      

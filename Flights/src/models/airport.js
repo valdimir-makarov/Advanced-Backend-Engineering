@@ -9,7 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Airport.belongsTo(models.city, {
+        foreignKey: 'cityId', // The foreign key in the Airports table
+        onDelete: 'CASCADE', // Optional: Automatically delete the airport if the referenced city is deleted
+      });
     }
   }
   Airport.init({
@@ -38,8 +41,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       references:{
    model:city,
-   key:id
+   key:'id'
       },
+
 
       validate: {
         notNull: { msg: 'CityId is required' },
